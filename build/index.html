@@ -17,13 +17,13 @@
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body>
-  <div class="container">
+  <div class="container" ng-controller="AppVM as vm">
     <div class="heading">
       <h1 class="title">Superheroic</h1>
       <h1 class="title">2048</h1>
       <div class="scores-container">
-        <div class="score-container">0</div>
-        <div class="best-container">0</div>
+        <div class="score-container">{{vm.state.score}}</div>
+        <div class="best-container">{{vm.state.best}}</div>
       </div>
     </div>
 
@@ -33,8 +33,10 @@
     </div>
 
     <div class="game-container">
-      <div class="game-message">
-        <p></p>
+      <div class="game-message"
+        ng-class="vm.gameMessageClass()">
+        <p>{{ vm.state.won ? 'You won!' : 
+              vm.state.over ? 'Game over!' : '' }}</p>
         <div class="lower">
 	        <a class="keep-playing-button">Keep going</a>
           <a class="retry-button">Try again</a>
@@ -42,34 +44,17 @@
       </div>
 
       <div class="grid-container">
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-        </div>
-        <div class="grid-row">
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
-          <div class="grid-cell"></div>
+        <div class="grid-row" ng-repeat="row in [1,2,3,4]">
+          <div class="grid-cell" ng-repeat="cell in [1,2,3,4]"></div>
         </div>
       </div>
 
       <div class="tile-container">
-
+        <div ng-repeat-start="tile in vm.state.tiles"></div>
+          <div class="tile tile-{{tile.score}} tile-position-{{tile.x+1}}-{{tile.y+1}}">
+            <div class="tile-inner">{{tile.score}}</div>
+          </div>
+        <div ng-repeat-end></div>
       </div>
     </div>
 
