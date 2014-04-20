@@ -1,0 +1,29 @@
+{
+  "name": "superheroic-2048",
+  "version": "0.0.0",
+  "authors": [
+    "Andrew C. Greenberg <wizardwerdna@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.9.1",
+    "angular": "latest",
+    "angular-resource": "latest",
+    "angular-cookies": "latest",
+    "angular-sanitize": "latest",
+    "angular-animate": "latest",
+    "angular-route": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "latest",
+    "angular-test-scaffold": "latest"
+  }
+}
