@@ -1,8 +1,12 @@
 'use strict';
 angular.module('app', [])
 
-.controller('AppVM', function(state){
+.controller('AppVM', function(state, game){
   this.state = state;
+
+  this.keydown = function(event){
+    game.turn(event.which);
+  };
 
   this.gameMessageClass = function(){
     if (state.won) {
@@ -16,5 +20,14 @@ angular.module('app', [])
 })
 
 .value('state', {})
+
+.factory('game', function(){
+  return {
+    LEFT: 37,
+    turn: function(key){
+      console.log('turn', key);
+    }
+  };
+});
 
 ;

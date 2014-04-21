@@ -17,7 +17,7 @@
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
 <body ng-app="app">
-  <div class="container" ng-controller="AppVM as vm">
+  <div class="container" ng-controller="AppVM as vm" ng-keydown="vm.keydown($event)">
     <div class="heading">
       <h1 class="title">Superheroic</h1>
       <h1 class="title">2048</h1>

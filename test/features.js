@@ -1,6 +1,7 @@
 'use strict';
 // jshint newcap: false
 describe('Superheroic 2048', function(){
+  var game;
   var page = {
     element: $(),
     find: function(spec){return page.element.find(spec);},
@@ -71,11 +72,56 @@ describe('Superheroic 2048', function(){
     });
   });
 
+  describe('FEATURE: processing keypressing', function(){
+
+    function s2b(str){
+      return str
+        .split('|')
+        .slice(1)
+        .map(function(each, index){
+          return {x: index%4, y: Math.floor(index/4), score: parseInt(each)};
+        })
+        .filter(function(each){return !isNaN(each.score);});
+    }
+
+    var status1 = {
+      score: 100,
+      best:  400,
+      tiles: s2b('\
+      |    |    | 256|    \
+      | 512| 512|    |    \
+      |    |    | 256| 256\
+      |    | 512|    |    '),
+      won: false,
+      done: false
+    },
+
+    status1AfterLeft = {
+      score: 1636,
+      best:  1636,
+      tiles: s2b('\
+      | 256|    |    |    \
+      |1024|    |    |    \
+      | 512|    |    |    \
+      | 512|    |    |   2'),
+      won: false,
+      done: false
+    }
+    ;
+
+    it('SCENARIO: moving left', function(){
+      GIVEN_2048PageFor(status1);
+      page.element.filter('.container').trigger({type: 'keydown', which: game.LEFT});
+      THEN_2048PageShouldConformTo(status1AfterLeft);
+    });
+  });
+
   function GIVEN_2048PageFor(_state_){
     module('app', 'index.html', function($provide){
       $provide.value('state', angular.copy(_state_));
     });
-    inject(function($compile, $rootScope, $templateCache){
+    inject(function($compile, $rootScope, $templateCache, _game_){
+      game = _game_;
       page.element = $compile($templateCache.get('index.html'))($rootScope);
       $rootScope.$digest();
     });
