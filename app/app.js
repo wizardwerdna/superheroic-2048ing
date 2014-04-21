@@ -15,6 +15,6 @@ angular.module('app', [])
   };
 })
 
-.value('state')
+.value('state', {})
 
 ;

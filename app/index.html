@@ -16,7 +16,7 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
 </head>
-<body>
+<body ng-app="app">
   <div class="container" ng-controller="AppVM as vm">
     <div class="heading">
       <h1 class="title">Superheroic</h1>
@@ -67,15 +67,22 @@
     </p>
   </div>
 
-  <script src="js/bind_polyfill.js"></script>
-  <script src="js/classlist_polyfill.js"></script>
-  <script src="js/animframe_polyfill.js"></script>
-  <script src="js/keyboard_input_manager.js"></script>
-  <script src="js/html_actuator.js"></script>
-  <script src="js/grid.js"></script>
-  <script src="js/tile.js"></script>
-  <script src="js/local_storage_manager.js"></script>
-  <script src="js/game_manager.js"></script>
-  <script src="js/application.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="app.js"></script>
+  <script type="text/javascript">
+    angular.module('app').run(function(state){
+      angular.extend(state, {
+        score: 123,
+        best: 321,
+        tiles: [
+          {x: 0, y:0, score: 2},
+          {x: 0, y:1, score: 4}
+        ],
+        won: false,
+        over: false
+      });
+      console.log(state);
+    });
+  </script>
 </body>
 </html>
